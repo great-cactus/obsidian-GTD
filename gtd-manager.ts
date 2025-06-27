@@ -276,18 +276,18 @@ export class GTDManager {
 	}
 
 	private isTaskCompleted(metadata: TaskMetadata): boolean {
-		return metadata.taskStatus === TASK_STATUS.DONE;
+		return metadata['task status'] === TASK_STATUS.DONE;
 	}
 
 	private isTaskTrash(metadata: TaskMetadata): boolean {
-		return metadata.taskKind === TASK_KIND.TRASH;
+		return metadata['task kind'] === TASK_KIND.TRASH;
 	}
 
 	private isTaskOverdue(metadata: TaskMetadata): boolean {
-		if (!metadata.scheduledDate) return false;
+		if (!metadata['scheduled date']) return false;
 		
 		try {
-			const scheduledDate = new Date(metadata.scheduledDate);
+			const scheduledDate = new Date(metadata['scheduled date']);
 			const today = new Date();
 			today.setHours(0, 0, 0, 0); // Start of day
 			return scheduledDate < today;
