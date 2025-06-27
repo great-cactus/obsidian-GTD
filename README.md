@@ -1,16 +1,20 @@
-# Obsidian Sample Plugin
+# Obsidian GTD Manager Plugin
 
-This is a sample plugin for Obsidian (https://obsidian.md).
+A plugin for managing GTD (Getting Things Done) tasks in Obsidian.
 
-This project uses TypeScript to provide type checking and documentation.
-The repo depends on the latest plugin API (obsidian.d.ts) in TypeScript Definition format, which contains TSDoc comments describing what it does.
+This plugin provides automated task management features for GTD workflows:
+- Automatically delete completed tasks (`task status: done`)
+- Automatically delete trash tasks (`task kind: ごみ箱`)
+- Update overdue scheduled tasks to today's date
+- Create task files from `#TODO` items in markdown files
+- Sync task completion status back to original checkboxes
 
-This sample plugin demonstrates some of the basic functionality the plugin API can do.
-- Adds a ribbon icon, which shows a Notice when clicked.
-- Adds a command "Open Sample Modal" which opens a Modal.
-- Adds a plugin setting tab to the settings page.
-- Registers a global click event and output 'click' to the console.
-- Registers a global interval which logs 'setInterval' to the console.
+## Current Status
+This plugin is currently in development. Core GTD management functionality has been implemented including:
+- Task file analysis with YAML frontmatter parsing
+- Automatic cleanup of completed and trash tasks
+- Scheduled date updates for overdue tasks
+- Basic settings configuration
 
 ## First time developing plugins?
 
@@ -44,12 +48,13 @@ Quick starting guide for new plugin devs:
 - Make sure you have a `README.md` file in the root of your repo.
 - Make a pull request at https://github.com/obsidianmd/obsidian-releases to add your plugin.
 
-## How to use
+## Development Setup
 
 - Clone this repo.
 - Make sure your NodeJS is at least v16 (`node --version`).
-- `npm i` or `yarn` to install dependencies.
+- `npm i` to install dependencies.
 - `npm run dev` to start compilation in watch mode.
+- Copy the built files to your Obsidian vault's plugins folder for testing.
 
 ## Manually installing the plugin
 
