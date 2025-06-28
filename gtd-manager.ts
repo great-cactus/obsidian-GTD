@@ -220,12 +220,21 @@ export class GTDManager {
 		try {
 			const now = new Date();
 			const taskId = this.formatDateTime(now);
-			const filename = `${taskId}_${this.sanitizeFileName(todo.content)}.md`;
-			const taskPath = `${this.settings.gtdDirectory}/${filename}`;
+			const baseFilename = this.sanitizeFileName(todo.content);
+			let filename = `${baseFilename}.md`;
+			let taskPath = `${this.settings.gtdDirectory}/${filename}`;
 
 			// GTDディレクトリが存在しない場合は作成
 			if (!await this.app.vault.adapter.exists(this.settings.gtdDirectory)) {
 				await this.app.vault.createFolder(this.settings.gtdDirectory);
+			}
+
+			// ファイル名の重複を避ける
+			let counter = 1;
+			while (await this.app.vault.adapter.exists(taskPath)) {
+				filename = `${baseFilename}_${counter}.md`;
+				taskPath = `${this.settings.gtdDirectory}/${filename}`;
+				counter++;
 			}
 
 			const taskContent = this.generateTaskContent(taskId, todo, now);
