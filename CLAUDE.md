@@ -14,6 +14,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 2. The plugin will be automatically rebuilt when files change
 3. Reload Obsidian to see changes (Ctrl+R in developer mode)
 4. Check the Developer Console (Ctrl+Shift+I) for errors
+5. **Commit early and often** - Create commits at appropriate granularity for each logical change or feature increment
 
 ### Project Architecture (Current State)
 This is currently an Obsidian sample plugin template that needs to be converted to a GTD management plugin:
@@ -343,3 +344,34 @@ todo_id: <unique identifier>
 1. UI/UXの改善
 2. 統計機能
 3. 拡張機能の実装
+
+## Git Commit Guidelines
+
+### Commit Frequency
+- **Create commits at appropriate granularity** for each logical change or feature increment
+- Examples of good commit points:
+  - Single bug fix or feature addition
+  - Refactoring of a specific function or module  
+  - Configuration changes
+  - Documentation updates
+  - Each step of a multi-part feature implementation
+
+### Commit Message Format
+Follow the established format:
+```
+<action> <subject>
+
+<optional description>
+
+🤖 Generated with [Claude Code](https://claude.ai/code)
+
+Co-Authored-By: Claude <noreply@anthropic.com>
+```
+
+### When to Commit
+- After fixing a bug
+- After implementing a feature increment
+- After refactoring code
+- After updating documentation
+- Before switching to work on a different area
+- When reaching a stable state in development
