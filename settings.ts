@@ -53,6 +53,12 @@ export class GTDSettingTab extends PluginSettingTab {
 				.onChange(async (value) => {
 					this.plugin.settings.autoDeleteCompleted = value;
 					await this.plugin.saveSettings();
+				}))
+			.addButton(button => button
+				.setButtonText('今すぐ実行')
+				.onClick(async () => {
+					const count = await this.plugin.gtdManager.deleteCompletedTasks();
+					this.plugin.showNotice(`${count}個の完了タスクを削除しました`);
 				}));
 
 		new Setting(containerEl)
@@ -75,6 +81,12 @@ export class GTDSettingTab extends PluginSettingTab {
 				.onChange(async (value) => {
 					this.plugin.settings.autoDeleteTrash = value;
 					await this.plugin.saveSettings();
+				}))
+			.addButton(button => button
+				.setButtonText('今すぐ実行')
+				.onClick(async () => {
+					const count = await this.plugin.gtdManager.deleteTrashTasks();
+					this.plugin.showNotice(`${count}個のごみ箱タスクを削除しました`);
 				}));
 
 		new Setting(containerEl)
@@ -97,6 +109,12 @@ export class GTDSettingTab extends PluginSettingTab {
 				.onChange(async (value) => {
 					this.plugin.settings.autoUpdateSchedule = value;
 					await this.plugin.saveSettings();
+				}))
+			.addButton(button => button
+				.setButtonText('今すぐ実行')
+				.onClick(async () => {
+					const count = await this.plugin.gtdManager.updateOverdueTasks();
+					this.plugin.showNotice(`${count}個の期限切れタスクを更新しました`);
 				}));
 
 		new Setting(containerEl)
@@ -122,6 +140,13 @@ export class GTDSettingTab extends PluginSettingTab {
 				.onChange(async (value) => {
 					this.plugin.settings.autoCreateFromTodo = value;
 					await this.plugin.saveSettings();
+				}))
+			.addButton(button => button
+				.setButtonText('今すぐ実行')
+				.onClick(async () => {
+					const count = await this.plugin.gtdManager.createTasksFromTodos();
+					this.plugin.showNotice(`${count}個の新しいタスクを作成しました`);
+					await this.plugin.saveSyncData();
 				}));
 
 		new Setting(containerEl)
@@ -144,6 +169,13 @@ export class GTDSettingTab extends PluginSettingTab {
 				.onChange(async (value) => {
 					this.plugin.settings.autoUpdateCheckbox = value;
 					await this.plugin.saveSettings();
+				}))
+			.addButton(button => button
+				.setButtonText('今すぐ実行')
+				.onClick(async () => {
+					const count = await this.plugin.gtdManager.updateCheckboxesFromTasks();
+					this.plugin.showNotice(`${count}個のチェックボックスを更新しました`);
+					await this.plugin.saveSyncData();
 				}));
 
 		new Setting(containerEl)
@@ -158,41 +190,5 @@ export class GTDSettingTab extends PluginSettingTab {
 					await this.plugin.saveSettings();
 				}));
 
-		// マニュアル操作ボタン
-		containerEl.createEl('h3', { text: 'マニュアル実行' });
-
-		new Setting(containerEl)
-			.setName('今すぐ実行')
-			.setDesc('各機能を手動で実行します')
-			.addButton(button => button
-				.setButtonText('完了タスク削除')
-				.onClick(async () => {
-					const count = await this.plugin.gtdManager.deleteCompletedTasks();
-					this.plugin.showNotice(`${count}個の完了タスクを削除しました`);
-				}))
-			.addButton(button => button
-				.setButtonText('ごみ箱タスク削除')
-				.onClick(async () => {
-					const count = await this.plugin.gtdManager.deleteTrashTasks();
-					this.plugin.showNotice(`${count}個のごみ箱タスクを削除しました`);
-				}))
-			.addButton(button => button
-				.setButtonText('期限切れタスク更新')
-				.onClick(async () => {
-					const count = await this.plugin.gtdManager.updateOverdueTasks();
-					this.plugin.showNotice(`${count}個の期限切れタスクを更新しました`);
-				}))
-			.addButton(button => button
-				.setButtonText('#TODO検索')
-				.onClick(async () => {
-					const count = await this.plugin.gtdManager.createTasksFromTodos();
-					this.plugin.showNotice(`${count}個の新しいタスクを作成しました`);
-				}))
-			.addButton(button => button
-				.setButtonText('チェックボックス同期')
-				.onClick(async () => {
-					const count = await this.plugin.gtdManager.updateCheckboxesFromTasks();
-					this.plugin.showNotice(`${count}個のチェックボックスを更新しました`);
-				}));
 	}
 }
