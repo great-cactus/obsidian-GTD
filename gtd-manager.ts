@@ -369,7 +369,6 @@ task status: ${TASK_STATUS.NOT_YET}
 created_from: todo
 source_file: "${sourceFileLink}"
 source_line: ${todo.lineNumber}
-todo_id: ${todo.taskId}
 ---
 
 ## 作成元
